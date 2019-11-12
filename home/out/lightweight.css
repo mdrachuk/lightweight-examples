@@ -1,0 +1,50 @@
+@import url(hljs-ocean.css);
+body { min-height: 100vh; margin: 0; padding: 0; display: flex; flex-direction: column; justify-content: space-between; align-items: center; font-size: 1.1rem; background-color: #f8f8f8; font-family: Georgia, serif; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; }
+
+@media screen and (max-width: 700px) { body { align-items: initial; } }
+
+body p { line-height: 1.5rem; }
+
+body a { color: #faa000; }
+
+body a h1, body a span { color: #000000; }
+
+body a:hover, body a:hover * { color: #010101; }
+
+body a:active, body a:active * { color: #3f3f3f; }
+
+body hr { margin: 2em 0; border: 1px solid #eaeaea; }
+
+body main { max-width: 800px; }
+
+@media screen and (max-width: 840px) { body main { padding: 0 1em 0; } }
+
+body main .double-container { display: flex; flex-direction: row; }
+
+@media screen and (max-width: 740px) { body main .double-container { display: block; } }
+
+body main .double-container div { flex: auto; }
+
+body #header-container { width: 900px; }
+
+@media screen and (max-width: 940px) { body #header-container { width: 100vw; } }
+
+body #header-container header { display: flex; flex-direction: row; align-items: baseline; justify-content: space-between; }
+
+@media screen and (max-width: 940px) { body #header-container header { padding: 0 1em 0; } }
+
+@media screen and (max-width: 700px) { body #header-container header { display: block; } }
+
+body #header-container header nav { font-size: 1.6em; }
+
+@media screen and (max-width: 700px) { body #header-container header nav { margin-left: -0.13em; } }
+
+body #header-container header nav a { padding: 0 0.15em; text-transform: lowercase; }
+
+body footer { padding: 1em; font-size: 1rem; }
+
+@media screen and (max-width: 740px) { body pre code { max-width: 92vw; } }
+
+body .bash:before { content: '$ '; }
+
+/*# sourceMappingURL=lightweight.css.map */

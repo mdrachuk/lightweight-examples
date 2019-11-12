@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+    <link type="text/css" rel="stylesheet" href="/lightweight.css" media="screen,projection">
+
+    <link rel="alternate" type="application/rss+xml" title="New Posts" href="/posts.rss.xml"/>
+    <link rel="alternate" type="application/atom+xml" title="New Posts" href="/posts.atom.xml"/>
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/images/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/images/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/images/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/images/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/images/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/images/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/images/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <meta name="msapplication-TileImage" content="/images/ms-icon-144x144.png">
+    <title> Lightweight </title>
+</head>
+<body>
+
+<div id="header-container">
+    <header>
+        <a href="/"><h1>Lightweight</h1></a>
+        <nav>
+            <a href="/posts"><span>Blog</span></a>
+            <a href="https://lightweight.readthedocs.io"><span>Docs</span></a>
+            <a href="https://pypi.org/project/lightweight/"><span>PyPI</span></a>
+            <a href="https://github.com/mdrachuk/lightweight"><span>GitHub</span></a>
+        </nav>
+    </header>
+</div>
+
+<main>
+
+    <article>
+        <h1>Using Lightweight</h1>
+        
+        <p>The core idea behind the project is "Code over configuration".</p>
+<p>It’s explicit and predictable. 
+Site’s structure is easy to control when it is obvious from a single glance.</p>
+<p>The best way to get a feel for Lightweight static site generation is simply to look at an example.</p>
+<!--preview-->
+
+<pre><code class="lang-python">from lightweight import Site, markdown, template, rss, atom, jinja, sass, paths
+from datetime import datetime
+
+
+def blog_posts(source: str):
+    post_template = template(&#39;blog-post.html&#39;)
+    return (markdown(path, post_template) for path in paths(source))
+
+
+site = Site(url=&#39;http://example.org&#39;, out=&#39;generated/&#39;)
+
+# Render an index page from Jinja2 template.
+site.include(&#39;index.html&#39;, jinja(&#39;pages/index.html&#39;, generated=datetime.now()))
+
+# Render markdown blog posts.
+[site.include(f&#39;posts/{post.path.stem}.html&#39;, post) for post in blog_posts(&#39;posts/**.md&#39;)]
+site.include(&#39;posts.html&#39;, jinja(&#39;pages/posts.html&#39;))
+
+# Syndicate RSS and Atom feeds.
+site.include(&#39;posts.atom.xml&#39;, atom(site[&#39;posts&#39;]))
+site.include(&#39;posts.rss.xml&#39;, rss(site[&#39;posts&#39;]))
+
+# Render SASS to CSS.
+site.include(&#39;lightweight.css&#39;, sass(&#39;styles/lightweight.scss&#39;))
+
+# Include directory with its contents.
+site.include(&#39;js&#39;)
+site.include(&#39;images&#39;)
+
+site.render()
+</code></pre>
+<p>Let’s take it apart.</p>
+<h3 id="code-site-code"><code>Site()</code></h3>
+<p>The central element of Lightweight API is the <code>Site</code>.
+Site is a collection of content and the context provided to content when it is rendered.</p>
+<pre><code class="lang-python">site = Site(url=&#39;http://example.org&#39;, out=&#39;generated/&#39;)
+</code></pre>
+<h3 id="code-site-include-location-content-code"><code>site.include(location, content)</code></h3>
+<p>The API is designed to look declarative with every line defining the target location and the content.</p>
+<p>It is done via <code>site.include(location, content)</code> method,
+where <code>location</code> is a string path to the output file, 
+and <code>content</code> is an object that has a <code>content.write(path)</code> method.</p>
+<p>The beauty is in the fact that every line ends up having 
+the source, the target and the transformation from former to latter:</p>
+<pre><code class="lang-python">site.include(&lt;output location&gt;, &lt;transformation&gt;(&lt;source location&gt;, **options))
+</code></pre>
+<h3 id="code-jinja-location-jinjapage-code"><code>jinja(location) -&gt; JinjaPage</code></h3>
+<pre><code class="lang-python">from lightweight import jinja
+
+site.include(&#39;index.html&#39;, jinja(&#39;pages/index.html&#39;, generated=datetime.now()))
+</code></pre>
+<p>Here <code>jinja(template_location, **params)</code> takes a Jinja2 template location, 
+and keyword arguments that are passed to the template when it is rendered.</p>
+<p>The template is not rendered right away. 
+Instead a <code>JinjaPage(Content)</code> instance is created. 
+It is rendered and stored upon <code>site.render()</code> at the very end.</p>
+<h3 id="code-paths-glob-list-path-code"><code>paths(glob) -&gt; List[Path]</code></h3>
+<p>Use <code>paths(glob)</code> when you need to list multiple files by glob.
+The pattern will be searched for recursively and return a 
+<a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path"><span><code>List[Path]</code></span></a>:</p>
+<pre><code class="lang-python">all_kitten_images = paths(&#39;kittens/**/*.png&#39;)
+</code></pre>
+<h3 id="code-markdown-location-template-markdownpage-code"><code>markdown(location, template) -&gt; MarkdownPage</code></h3>
+<p>Next up rendering blog posts from markdown:</p>
+<pre><code class="lang-python">from lightweight import markdown, template, paths
+
+def blog_posts(glob: str):
+    post_template = template(&#39;blog-post.html&#39;)
+    return (markdown(path, post_template) for path in paths(glob))
+
+[site.include(f&#39;posts/{post.path.stem}.html&#39;, post) for post in blog_posts(&#39;posts/**.md&#39;)]
+</code></pre>
+<p>Each file matching <code>posts/**.md</code> is passed to <code>markdown(...)</code>.
+This creates a <code>MarkdownPage</code> object.</p>
+<p>Upon <code>site.render()</code> the markdown will be rendered into the template and saved as a corresponding html.</p>
+<h3 id="code-atom-collection-code-code-rss-collection-feed-code"><code>atom(collection)</code>/<code>rss(collection) -&gt; Feed</code></h3>
+<p>Collections are created for content manipulation and aggregation. 
+<code>ContentCollection</code> supports indexing, iteration, etc.</p>
+<p>A great example is how Atom and RSS feeds are created from everything included under site’s <code>posts</code> directory.</p>
+<pre><code class="lang-python">from lightweight import atom, rss
+
+site.include(&#39;posts.atom.xml&#39;, atom(site[&#39;posts&#39;]))
+site.include(&#39;posts.rss.xml&#39;, rss(site[&#39;posts&#39;]))
+</code></pre>
+<h3 id="code-sass-location-sass-code"><code>sass(location) -&gt; Sass</code></h3>
+<p>Why would someone use CSS when there is Sass?</p>
+<pre><code class="lang-python">from lightweight import sass
+
+site.include(&#39;lightweight.css&#39;, sass(&#39;styles/lightweight.scss&#39;))
+</code></pre>
+<h3 id="code-site-include-glob-code"><code>site.include(glob)</code></h3>
+<p>A single parameter <code>.include(...)</code> shorthand adds all files matching a glob:</p>
+<pre><code class="lang-python">site.include(&#39;js&#39;)
+site.include(&#39;images&#39;)
+</code></pre>
+<h3 id="code-site-render-code"><code>site.render()</code></h3>
+<p>The last step is to collect all the content and write it to the <code>out</code> directory provided to <code>Site(out=...)</code> constructor.</p>
+<pre><code class="lang-python">site.render()
+</code></pre>
+<p>At this point every <code>Content.write(path: SitePath)</code> is executed. 
+This two step design allows to depend on the whole content tree.</p>
+
+    </article>
+
+</main>
+
+<footer>
+    <p>
+        © <a href="https://drach.uk"><span>Misha Drachuk</span></a> 2019
+        |
+        made with <a href="https://drach.uk/lightweight"><span>Lightweight</span></a>
+    </p>
+</footer>
+
+<script async charset="UTF-8" src="/js/highlight.pack.js" onload="hljs.initHighlightingOnLoad()"></script>
+
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+    <link type="text/css" rel="stylesheet" href="/lightweight.css" media="screen,projection">
+
+    <link rel="alternate" type="application/rss+xml" title="New Posts" href="/posts.rss.xml"/>
+    <link rel="alternate" type="application/atom+xml" title="New Posts" href="/posts.atom.xml"/>
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/images/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/images/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/images/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/images/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/images/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/images/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/images/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <meta name="msapplication-TileImage" content="/images/ms-icon-144x144.png">
+    <title> Lightweight </title>
+</head>
+<body>
+
+<div id="header-container">
+    <header>
+        <a href="/"><h1>Lightweight</h1></a>
+        <nav>
+            <a href="/posts"><span>Blog</span></a>
+            <a href="https://lightweight.readthedocs.io"><span>Docs</span></a>
+            <a href="https://pypi.org/project/lightweight/"><span>PyPI</span></a>
+            <a href="https://github.com/mdrachuk/lightweight"><span>GitHub</span></a>
+        </nav>
+    </header>
+</div>
+
+<main>
+
+    <article>
+        <h1>Bumper-Sticker API Design by Joshua Bloch</h1>
+        
+            <nav id="table-of-contents">
+                <ol style="margin-left: -1rem;"></ol>
+            </nav>
+        
+        <p><strong>All programmers are API designers.</strong> Good programs are modular, and intermodular boundaries define APIs. Good modules get reused.</p>
+<!--preview-->
+
+<p><strong>APIs can be among your greatest assets or liabilities.</strong> Good APIs create long-term customers; bad ones create long-term support nightmares.</p>
+<p><strong>Public APIs, like diamonds, are forever.</strong> You have one chance to get it right so give it your best.</p>
+<p><strong>APIs should be easy to use and hard to misuse.</strong> It should be easy to do simple things; possible to do complex things; and impossible, or at least difficult, to do wrong things.</p>
+<p><strong>APIs should be self-documenting</strong>: It should rarely require documentation to read code written to a good API. In fact, it should rarely require documentation to write it.</p>
+<p><strong>When designing an API, first gather requirements--with a healthy degree of skepticism.</strong> People often provide solutions; it's your job to ferret out the underlying problems and find the best solutions.</p>
+<p><strong>Structure requirements as use-cases</strong>: they are the yardstick against which you'll measure your API.</p>
+<p><strong>Early drafts of APIs should be short</strong>, typically one page with class and method signatures and one-line descriptions. This makes it easy to restructure the API when you don't get it right the first time.</p>
+<p><strong>Code the use-cases against your API before you implement it</strong>, even before you specify it properly. This will save you from implementing, or even specifying, a fundamentally broken API.</p>
+<p><strong>Maintain the code for uses-cases as the API evolves.</strong> Not only will this protect you from rude surprises, but the resulting code will become the examples for the API, the basis for tutorials and tests.</p>
+<p><strong>Example code should be exemplary.</strong> If an API is used widely, its examples will be the archetypes for thousands of programs. Any mistakes will come back to haunt you a thousand fold.</p>
+<p><strong>You can't please everyone so aim to displease everyone equally.</strong> Most APIs are overconstrained.</p>
+<p><strong>Expect API-design mistakes due to failures of imagination.</strong> You can't reasonably hope to imagine everything that everyone will do with an API, or how it will interact with every other part of a system.</p>
+<p><strong>API design is not a solitary activity.</strong> Show your design to as many people as you can, and take their feedback seriously. Possibilities that elude your imagination may be clear to others.</p>
+<p><strong>Avoid fixed limits on input sizes.</strong> They limit usefulness and hasten obsolescence.</p>
+<p><strong>Names matter. Strive for intelligibility, consistency, and symmetry.</strong> Every API is a little language, and people must learn to read and write it. If you get an API right, code will read like prose.</p>
+<p><strong>If it's hard to find good names, go back to the drawing board.</strong> Don't be afraid to split or merge an API, or embed it in a more general setting. If names start falling into place, you're on the right track.</p>
+<p><strong>When in doubt, leave it out.</strong> If there is a fundamental theorem of API design, this is it. It applies equally to functionality, classes, methods, and parameters. Every facet of an API should be as small as possible, but no smaller. You can always add things later, but you can't take them away. Minimizing conceptual weight is more important than class- or method-count.</p>
+<p><strong>Keep APIs free of implementations details.</strong> They confuse users and inhibit the flexibility to evolve. It isn't always obvious what's an implementation detail: Be wary of overspecification.</p>
+<p><strong>Minimize mutability.</strong> Immutable objects are simple, thread-safe, and freely sharable.</p>
+<p><strong>Documentation matters.</strong> No matter how good an API, it won't get used without good documentation. Document every exported API element: every class, method, field, and parameter.</p>
+<p><strong>Consider the performance consequences of API design decisions, but don't warp an API to achieve performance gains.</strong> Luckily, good APIs typically lend themselves to fast implementations.</p>
+<p><strong>When in Rome, do as the Romans do. APIs must coexist peacefully with the platform, so do what is customary.</strong> It is almost always wrong to transliterate an API from one platform to another.</p>
+<p><strong>Minimize accessibility; when in doubt, make it private.</strong> This simplifies APIs and reduces coupling.</p>
+<p><strong>Subclass only if you can say with a straight face that every instance of the subclass is an instance of the superclass.</strong> Exposed classes should never subclass just to reuse implementation code.</p>
+<p><strong>Design and document for inheritance or else prohibit it.</strong> This documentation takes the form of selfuse patterns: how methods in a class use one another. Without it, safe subclassing is impossible.</p>
+<p><strong>Don't make the client do anything the library could do.</strong> Violating this rule leads to boilerplate code in the client, which is annoying and error-prone.</p>
+<p><strong>Obey the principle of least astonishment.</strong> Every method should do the least surprising thing it could, given its name. If a method doesn't do what users think it will, bugs will result.</p>
+<p><strong>Fail fast.</strong> The sooner you report a bug, the less damage it will do. Compile-time is best. If you must fail at run-time, do it as soon as possible.</p>
+<p><strong>Provide programmatic access to all data available in string form.</strong> Otherwise, programmers will be forced to parse strings, which is painful. Worse, the string forms will turn into de facto APIs.</p>
+<p><strong>Overload with care.</strong> If the behaviors of two methods differ, it's better to give them different names.</p>
+<p><strong>Use the right data type for the job.</strong> For example, don't use string if there is a more appropriate type.</p>
+<p><strong>Use consistent parameter ordering across methods.</strong> Otherwise, programmers will get it backwards.</p>
+<p><strong>Avoid long parameter lists</strong>, especially those with multiple consecutive parameters of the same type.</p>
+<p><strong>Avoid return values that demand exceptional processing.</strong> Clients will forget to write the specialcase code, leading to bugs. For example, return zero-length arrays or collections rather than nulls.</p>
+<p><strong>Throw exceptions only to indicate exceptional conditions.</strong> Otherwise, clients will be forced to use exceptions for normal flow control, leading to programs that are hard to read, buggy, or slow.</p>
+<p><strong>Throw unchecked exceptions unless clients can realistically recover from the failure.</strong></p>
+<p><strong>API design is an art, not a science.</strong> Strive for beauty, and trust your gut. Do not adhere slavishly to the above heuristics, but violate them only infrequently and with good reason.</p>
+<p><a href="https://www.infoq.com/articles/API-Design-Joshua-Bloch/"><span>Source</span></a></p>
+
+    </article>
+
+</main>
+
+<footer>
+    <p>
+        © <a href="https://drach.uk"><span>Misha Drachuk</span></a> 2019
+        |
+        made with <a href="https://drach.uk/lightweight"><span>Lightweight</span></a>
+    </p>
+</footer>
+
+<script async charset="UTF-8" src="/js/highlight.pack.js" onload="hljs.initHighlightingOnLoad()"></script>
+
+</body>
+</html>

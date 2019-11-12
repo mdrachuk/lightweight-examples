@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+    <link type="text/css" rel="stylesheet" href="/lightweight.css" media="screen,projection">
+
+    <link rel="alternate" type="application/rss+xml" title="New Posts" href="/posts.rss.xml"/>
+    <link rel="alternate" type="application/atom+xml" title="New Posts" href="/posts.atom.xml"/>
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/images/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/images/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/images/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/images/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/images/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/images/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/images/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <meta name="msapplication-TileImage" content="/images/ms-icon-144x144.png">
+    <title> Lightweight </title>
+</head>
+<body>
+
+<div id="header-container">
+    <header>
+        <a href="/"><h1>Lightweight</h1></a>
+        <nav>
+            <a href="/posts"><span>Blog</span></a>
+            <a href="https://lightweight.readthedocs.io"><span>Docs</span></a>
+            <a href="https://pypi.org/project/lightweight/"><span>PyPI</span></a>
+            <a href="https://github.com/mdrachuk/lightweight"><span>GitHub</span></a>
+        </nav>
+    </header>
+</div>
+
+<main>
+    <p>Static website generator without magic.</p>
+
+    <h2>Code over configuration</h2>
+
+    <p>Most frameworks for static site generation are declarative.
+        They require a lot of time to get started and then they may not be flexible enough.</p>
+
+    <p>Lightweight is different in this manner.
+        It’s core API is handful, but from there you’re free to go in any direction you want.</p>
+
+
+    <div class="double-container">
+        <div>
+            <h2>Features</h2>
+
+            <ul>
+                <li><a href="https://www.python.org"><span>Python</span></a> Declarations</li>
+                <li><a href="https://jinja.palletsprojects.com/"><span>Jinja2</span></a> Templates</li>
+                <li><a href="https://daringfireball.net/projects/markdown/"><span>Markdown</span></a> Rendering</li>
+                <li>RSS/Atom Feed</li>
+                <li><a href="https://sass-lang.com"><span>SCSS</span></a> Superpowers</li>
+            </ul>
+        </div>
+
+        <div>
+            <h2>Installation</h2>
+
+            <p>Get it from <a href="https://pypi.org/project/lightweight/"><span>PyPI</span></a>:</p>
+
+            <pre><code class="bash">pip install lightweight</code></pre>
+        </div>
+
+    </div>
+
+    <h2>Code Example</h2>
+
+    <pre><code class="python">from lightweight import Site, markdown, paths, render, template, feeds, sass
+
+
+def blog_posts():
+    post_template = template('blog-post.html')
+    # Use globs to select files.
+    return (markdown(path, post_template) for path in paths('posts/**.md'))
+
+
+site = Site(url='https://example.com')
+
+# Render a Jinja2 template.
+site.include('index.html', jinja('index.html'))
+
+# Render list of Markdown files.
+[site.include(f'posts/{post.path.stem}.html', post) for post in blog_posts()]
+
+# Render SCSS.
+site.include('static/css/style.css', sass('static/scss/lightweight.scss'))
+
+# Include a copy of a directory.
+site.include('static/js')
+site.include('static/img')
+
+# Execute all included content.
+site.render()</code></pre>
+
+    <h2>Getting started</h2>
+
+    <p>TBD</p>
+
+</main>
+
+<footer>
+    <p>
+        © <a href="https://drach.uk"><span>Misha Drachuk</span></a> 2019
+        |
+        made with <a href="https://drach.uk/lightweight"><span>Lightweight</span></a>
+    </p>
+</footer>
+
+<script async charset="UTF-8" src="/js/highlight.pack.js" onload="hljs.initHighlightingOnLoad()"></script>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <id>http://example.org/posts</id>
+  <title>example.org</title>
+  <updated>2019-11-12T14:07:30.960897+00:00</updated>
+  <link href="http://example.org/posts" rel="alternate"/>
+  <generator uri="http://lkiesow.github.io/python-feedgen" version="0.8.0">python-feedgen</generator>
+  <subtitle>example.org | posts</subtitle>
+  <entry>
+    <id>http://example.org/posts/zen-of-python.html</id>
+    <title>PEP 20: The Zen of Python</title>
+    <updated>2004-08-22T00:00:00+00:00</updated>
+    <link href="http://example.org/posts/zen-of-python.html" rel="alternate"/>
+    <published>2004-08-19T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>http://example.org/posts/hello.html</id>
+    <title>Hello, World</title>
+    <updated>2019-10-11T00:00:00+00:00</updated>
+    <link href="http://example.org/posts/hello.html" rel="alternate"/>
+    <published>2019-10-10T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>http://example.org/posts/api-design.html</id>
+    <title>Bumper-Sticker API Design by Joshua Bloch</title>
+    <updated>2019-11-12T14:07:30.940891+00:00</updated>
+    <link href="http://example.org/posts/api-design.html" rel="alternate"/>
+    <published>2019-11-12T14:07:30.940891+00:00</published>
+  </entry>
+  <entry>
+    <id>http://example.org/posts/using-lightweight.html</id>
+    <title>Using Lightweight</title>
+    <updated>2019-10-10T00:00:00+00:00</updated>
+    <link href="http://example.org/posts/using-lightweight.html" rel="alternate"/>
+    <summary>A short how-to.</summary>
+    <published>2019-10-10T00:00:00+00:00</published>
+  </entry>
+</feed>
